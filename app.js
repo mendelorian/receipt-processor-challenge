@@ -60,7 +60,7 @@ function oddDatePoints(date) {
 function timeBetween2And4Points(time) {
   const timeArray = time.split(':');
   const hour = Number(timeArray[0]);
-  return (hour >= 14 && hour <= 16) ? POINTS.TIME_BETWEEN_2_4 : 0;
+  return (hour >= 14 && hour < 16) ? POINTS.TIME_BETWEEN_2_4 : 0;
 }
 
 function processReceipt(receipt) {
@@ -103,3 +103,5 @@ app.get('/receipts/:id/points', (req, res) => {
 app.listen(port, () => {
   console.log(`Server listening on port ${port}`);
 })
+
+export { processReceipt, receipts };
