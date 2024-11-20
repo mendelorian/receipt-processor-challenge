@@ -1,8 +1,9 @@
 import express from 'express';
 import cors from 'cors';
 import { calculatePoints } from './points-calculator.js';
+import { validateReceipt } from './validators.js';
 const app = express();
-const port = 3000;
+const PORT = process.env.PORT || 3000;
 
 app.use(express.json());
 app.use(cors());
@@ -10,7 +11,7 @@ app.use(cors());
 const receipts = new Map();
 
 const generateNewId = (() => {
-  // eventually return uuid, return as string in anticipation of this
+  // eventually return uuid instead
   let id = 0;
   return () => {
     id += 1;
@@ -18,38 +19,45 @@ const generateNewId = (() => {
   };
 })();
 
-async function processReceipt(receipt) {
-  try {
-    const id = await generateNewId();
-    const points = await calculatePoints(receipt);
-
-    // store in memory
-    receipts.set(id, points);
-    return { id };
-  } catch (err) {
-    console.error('Error during receipt processing: ', err);
-  }
-
-}
-
 app.post('/receipts/process', async (req, res) => {
-  try {
-    const result = await processReceipt(req.body);
-    console.log(result, receipts);
-    res.status(200).json(result);
-  } catch (err) {
-    console.error('Error occurred processing receipt: ', err);
-    res.status(400).send('The receipt is invalid');
+  const receipt = req.body;
+  const validationError = validateReceipt(receipt);
+  if (validationError) {
+    console.log(validationError);
+    res.status(400).json({ error: validationError });
+  } else {
+    try {
+      const points = await calculatePoints(receipt);
+      const id = generateNewId();
+
+      // store in memory
+      receipts.set(id, points);
+      console.log(receipts);
+
+      res.status(200).json({ id });
+    } catch (err) {
+      console.error('Error processing receipt: ', err);
+    }
   }
+
 })
 
 app.get('/receipts/:id/points', (req, res) => {
-  const points = {"points": receipts.get(req.params.id)};
-  res.status(200).json(points);
+  const id = req.params.id;
+  console.log('id', id);
+  const receiptData = receipts.get(id);
+  console.log('receiptData', receiptData);
+
+  if (!receiptData) {
+    res.status(404).send({ error: 'No receipt found for that id' });
+  } else {
+    res.status(200).json({ points: receiptData });
+  }
+
 })
 
-app.listen(port, () => {
-  console.log(`Server listening on port ${port}`);
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
 })
 
-export { processReceipt, receipts };
+export { receipts, app };
