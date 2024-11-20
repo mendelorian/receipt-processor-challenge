@@ -34,13 +34,13 @@ function validateReceipt(receipt) {
   // Validate each item
   for (const item of receipt.items) {
     if (!item.shortDescription || !item.price) {
-      return `Each item must have shortDescription and price.  One or more missing from ${item}`
+      return `Each item must have shortDescription and price.  One or more missing: ${item}`
     }
     if (!item.shortDescription.match(/^[\w\s-]+$/)) {
-      return `Invalid description format for item ${item}`;
+      return `Invalid description format: ${item}`;
     }
     if (!item.price.match(/^\d+\.\d{2}$/)) {
-      return `Invalid price format for item ${item}`;
+      return `Invalid price format: ${item}`;
     }
   }
 
