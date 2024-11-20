@@ -10,7 +10,7 @@ const POINT_VALUES = {
 
 function alphaNumericRetailerPoints(retailer) {
   const regex = /[a-zA-Z0-9]/g;
-  return retailer.match(regex).length * POINT_VALUES.ALPHA_NUM;
+  return (retailer.match(regex) || []).length * POINT_VALUES.ALPHA_NUM;
 }
 
 function roundTotalPoints(total) {
