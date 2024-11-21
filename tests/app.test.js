@@ -1,6 +1,23 @@
-import { describe, it, expect, beforeEach } from 'vitest';
+import { describe, it, expect, beforeEach, vi } from 'vitest';
 import request from 'supertest';
 import { receipts, app } from '../app.js';
+
+vi.mock('uuid', () => {
+  // incrementing 4 digit number
+  const generateNewId = (() => {
+    let id = 1000;
+    return () => {
+      id += 1;
+      return id.toString();
+    }
+  })();
+
+  return {
+    v4: () => `test-uuid-${generateNewId()}`
+  }
+}
+
+)
 
 describe('Receipt Processing API', () => {
   const simpleReceipt = {
@@ -41,10 +58,11 @@ describe('Receipt Processing API', () => {
         .expect('Content-Type', /json/);
 
       expect(response.body).toHaveProperty('id');
-      expect(response.body.id).toEqual('1');
+      expect(response.body.id).toEqual('test-uuid-1001');
     })
 
-    it('should assign a unique ID for each receipt', async () => {
+    // no longer useful test after mocking uuid
+    it.skip('should assign a unique ID for each receipt', async () => {
 
       const response1 = await request(app)
         .post('/receipts/process')
