@@ -44,9 +44,7 @@ describe('Receipt Processing API', () => {
   describe('POST /receipts/process', () => {
     // clear in-memory receipts before each test
     beforeEach(() => {
-      for (const key of receipts) {
-        receipts.delete(key);
-      }
+      receipts.clear();
     })
 
     it('should process a valid receipt', async () => {

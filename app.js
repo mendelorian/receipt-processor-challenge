@@ -30,6 +30,7 @@ app.post('/receipts/process', async (req, res) => {
       res.status(200).json({ id });
     } catch (err) {
       console.error('Error processing receipt: ', err);
+      res.status(500).json({ error: 'Internal server error processing receipt' });
     }
   }
 

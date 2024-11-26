@@ -43,7 +43,7 @@ describe('Points Calculator', () => {
       Math.floor(receipt.items.length / 2) * POINT_VALUES.EACH_PAIR_ITEMS + // 4 items = 2 pairs @ 5 points each
       Math.ceil(12.25 * POINT_VALUES.ITEM_DESC_MULT_OF_3) + // "Emils Cheese Pizza" is 18 chars (mult of 3), price 12.25
       Math.ceil(12 * POINT_VALUES.ITEM_DESC_MULT_OF_3) + // "Klarbrunn 12-PK 12 FL OZ" is 24 chars (mult of 3), price 12.00
-      POINT_VALUES.ODD_DATE; // purchase day 01 is odd
+      POINT_VALUES.ODD_DATE; // purchase day "01" is odd
 
     const result = await calculatePoints(receipt);
     expect(result).toEqual(expectedPoints);

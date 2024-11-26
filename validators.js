@@ -37,10 +37,10 @@ function validateReceipt(receipt) {
       return `Each item must have shortDescription and price.  One or more missing: ${item}`
     }
     if (!item.shortDescription.match(/^[\w\s-]+$/)) {
-      return `Invalid description format: ${item}`;
+      return `Invalid format for item description: ${item}`;
     }
     if (!item.price.match(/^\d+\.\d{2}$/)) {
-      return `Invalid price format: ${item}`;
+      return `Invalid format for item price: ${item}`;
     }
   }
 

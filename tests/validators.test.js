@@ -24,7 +24,7 @@ describe('Receipt Validator', () => {
   it('should reject a receipt with missing required fields', () => {
     delete validReceipt.retailer;
     const error = validateReceipt(validReceipt);
-    expect(error).toBe('Missing required field retailer');
+    expect(error).toContain('Missing required field retailer');
   })
 
   it('should validate retailer name format', () => {

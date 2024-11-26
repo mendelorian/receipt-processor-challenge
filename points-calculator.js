@@ -62,7 +62,7 @@ async function calculatePoints(receipt) {
 
     return totalPoints;
   } catch (err) {
-    console.error('Error calculating points: ', err);
+    throw new Error(`Error calculating points: ${err.message}`);
   }
 }
 
