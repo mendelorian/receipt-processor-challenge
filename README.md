@@ -1,12 +1,36 @@
 # Receipt Processor
 
-Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided 
-in the [api.yml](./api.yml) file, but the information in this README is sufficient for completion of this challenge. We will use the 
+Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided
+in the [api.yml](./api.yml) file, but the information in this README is sufficient for completion of this challenge. We will use the
 described API to test your solution.
 
 Provide any instructions required to run your application.
 
 Data does not need to persist when your application stops. It is sufficient to store information in memory. There are too many different database solutions, we will not be installing a database on our system when testing your application.
+
+# Running the Application with Docker
+
+To run this application with Docker, follow these steps:
+
+1. **Build the Docker Image**:
+```sh
+docker build -t receipt-processor .
+```
+
+The Docker image will be named 'receipt-processor'.
+
+2. **Run the Docker Container**:
+```sh
+docker run -p 3000:3000 receipt-processor
+```
+
+The application will be available on `http://localhost:3000`.
+
+3. **Test the Application**:
+- After running the container, you can interact with the API endpoints:
+  - **Process Receipts** (POST): `http://localhost:3000/receipts/process`
+  - **Get Points** (GET): `http://localhost:3000/receipts/{id}/points`
+- Use a tool like **Postman** or **cURL** to interact with the endpoints.
 
 ## Language Selection
 

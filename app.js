@@ -25,7 +25,6 @@ app.post('/receipts/process', async (req, res) => {
       const id = uuidv4();
       const points = await calculatePoints(receipt);
       receipts.set(id, points);
-      // console.log(receipts);
 
       res.status(200).json({ id });
     } catch (err) {
