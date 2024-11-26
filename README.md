@@ -26,11 +26,23 @@ docker run -p 3000:3000 receipt-processor
 
 The application will be available on `http://localhost:3000`.
 
-3. **Test the Application**:
+3. **Using the Application**:
 - After running the container, you can interact with the API endpoints:
   - **Process Receipts** (POST): `http://localhost:3000/receipts/process`
   - **Get Points** (GET): `http://localhost:3000/receipts/{id}/points`
 - Use a tool like **Postman** or **cURL** to interact with the endpoints.
+
+# Running Tests
+
+To run the unit tests, you can use Vitest:
+```sh
+npm run test
+```
+
+To run coverage:
+```sh
+npm run test:coverage
+```
 
 ## Language Selection
 
