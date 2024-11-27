@@ -66,12 +66,12 @@ describe('Receipt Validator', () => {
   it('should validate item price format', () => {
     validReceipt.items[0].price = '2.5';
     const error = validateReceipt(validReceipt);
-    expect(error).toContain('Invalid price format:');
+    expect(error).toContain('Invalid format for item price:');
   })
 
   it('should validate item description format', () => {
     validReceipt.items[0].shortDescription = 'Invalid!!!';
     const error = validateReceipt(validReceipt);
-    expect(error).toContain('Invalid description format:');
+    expect(error).toContain('Invalid format for item description:');
   })
 })
